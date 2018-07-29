@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+	<style type="text/css">
+		body, html {width: 100%;height: 100%;margin:0;font-family:"微软雅黑";}
+		#allmap{width:100%;height:100%;}
+	</style>
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=GxKXbF6p9s0pt3OD9hkOjbxsFbP5HCZG"></script>
+	<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+	<title>熊猫地图</title>
+</head>
+<body>
+	<div id="allmap"></div>
+</body>
+</html>
+<script type="text/javascript">
+	// 百度地图API功能	
+	map = new BMap.Map("allmap");
+	map.centerAndZoom(new BMap.Point(110,35), 5);
+	var data_info = [[112.010775,34.971343,"洛阳龙潭大峡谷：小乔、思一"],
+					 [121.620116,38.880833,"大连森林动物园：金虎、飞云、妙音"],
+					 [113.979046,22.604884,"深圳野生动物园：秋浜、圆舟"],
+					 [116.345538,39.945308,"北京动物园：乐乐、大地、吉妮、古古、福禄、萌大、萌小、点点、萌兰"],
+					 [106.695689,26.865844,"贵州森林野生动物园：和琪、和美"],
+					 [108.875464,34.0563,"西安秦岭野生动物园：秦秦 明明(丁丁)"],
+					 [116.992656,36.705635,"济南动物园：叮叮(彩云) 福虎 雅吉"],
+					 [104.113295,30.713147,"成都动物园：娅娅、莉莉、冰点"],
+					 [105.965977,31.572119,"阆中熊猫乐园：福龙、辉辉"],
+					 [121.367184,31.201281,"上海动物园：星二、雅二"],
+					 [121.72992,31.058671,"上海野生动物园：雅奥、优优、思雪、芊芊、月月、半半"],
+					 [114.308221,38.064564,"石家庄动物园：娅祥、云子"],
+					 [119.290606,26.095226,"福州熊猫世界乐园：雷雷、龙飞、林阳、小双、娇小"],
+					 [114.188112,22.248305,"香港海洋公园：安安、乐乐、盈盈"],
+					 [121.565487,25.042622,"台北市立动物园：团团、圆圆、圆仔"],
+					 [109.89707,39.845188,"鄂尔多斯野生动物园：七巧、	七喜"],
+					 [125.6596,43.544306,"长春东北虎园：华奥、阿灵"],
+					 [128.482991,44.799554,"亚布力熊猫馆：思嘉、佑佑"],
+					 [102.803178,25.100418,"云南野生动物园：毛竹、珍多"],
+					 [109.409921,24.269136,"柳州市动物园：明浜、蜀琳"]
+					];
+	var opts = {
+				width : 250,     // 信息窗口宽度
+				height: 80,     // 信息窗口高度
+				title : "大熊猫" , // 信息窗口标题
+				enableMessage:true//设置允许信息窗发送短息
+			   };
+	for(var i=0;i<data_info.length;i++){
+		var marker = new BMap.Marker(new BMap.Point(data_info[i][0],data_info[i][1]));  // 创建标注
+		var content = data_info[i][2];
+		map.addOverlay(marker);               // 将标注添加到地图中
+		addClickHandler(content,marker);
+	}
+	function addClickHandler(content,marker){
+		marker.addEventListener("click",function(e){
+			openInfo(content,e)}
+		);
+	}
+	function openInfo(content,e){
+		var p = e.target;
+		var point = new BMap.Point(p.getPosition().lng, p.getPosition().lat);
+		var infoWindow = new BMap.InfoWindow(content,opts);  // 创建信息窗口对象 
+		map.openInfoWindow(infoWindow,point); //开启信息窗口
+	}
+</script>
