@@ -7,6 +7,7 @@
 		body, html {width: 100%;height: 100%;margin:0;font-family:"微软雅黑";}
 		#allmap{width:100%;height:100%;}
 	</style>
+	<link rel="stylesheet" type="text/css" href="css/gdt-style.css">
 	<script type="text/javascript" src="./data.js"></script>
 	<script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=GxKXbF6p9s0pt3OD9hkOjbxsFbP5HCZG"></script>
 	<script src="https://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
@@ -14,6 +15,12 @@
 </head>
 <body>
 	<div id="allmap"></div>
+
+	<div class="side-bar"> 
+	<a href="" class="icon-chat">微信<div class="chat-tips"><i></i><img style="width:138px;height:138px;" src="img/code.jpg" alt="微信订阅号"></div></a> 
+	<a href="http://www.wenjuan.com/s/eIbm22/" class="icon-mail">mail</a> 
+</div>
+
 	<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274295461'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s22.cnzz.com/z_stat.php%3Fid%3D1274295461%26online%3D2' type='text/javascript'%3E%3C/script%3E"));</script>
 </body>
 </html>
@@ -23,45 +30,107 @@
 	map.centerAndZoom(new BMap.Point(110,35), 5);
 	map.enableScrollWheelZoom(true);
 
-
-	//var top_left_control = new BMap.ScaleControl({anchor: BMAP_ANCHOR_TOP_LEFT});// 左上角，添加比例尺
-	//var top_left_navigation = new BMap.NavigationControl();  //左上角，添加默认缩放平移控件
-	var top_right_navigation = new BMap.NavigationControl({anchor: BMAP_ANCHOR_TOP_RIGHT, type: BMAP_NAVIGATION_CONTROL_SMALL}); //右上角，仅包含平移和缩放按钮
-	/*缩放控件type有四种类型:
-	BMAP_NAVIGATION_CONTROL_SMALL：仅包含平移和缩放按钮；BMAP_NAVIGATION_CONTROL_PAN:仅包含平移按钮；BMAP_NAVIGATION_CONTROL_ZOOM：仅包含缩放按钮*/
-	//map.addControl(top_left_control);        
-	//map.addControl(top_left_navigation);     
-	map.addControl(top_right_navigation);
-
 	var cr = new BMap.CopyrightControl({anchor: BMAP_ANCHOR_BOTTOM_RIGHT});   //设置版权控件位置
 	map.addControl(cr); //添加版权控件
 	var bs = map.getBounds();   //返回地图可视区域
-	cr.addCopyright({id: 1, content: "<a href='#' style='font-size:20px;color:black'>©2018-Solamini.版权所有</a>", bounds: bs});   
+	cr.addCopyright({id: 1, content: "<a href='#' style='font-size:20px;color:black'>©2018-Solamini.版权所有,禁止盗用</a>", bounds: bs});   
 	//Copyright(id,content,bounds)类作为CopyrightControl.addCopyright()方法的参数
 
 	var opts = {
-				width : 270,     // 信息窗口宽度
-				height: 110,     // 信息窗口高度
+				width : '',     // 信息窗口宽度
+				height: '',     // 信息窗口高度
 				title : "" , // 信息窗口标题
 				enableMessage:true//设置允许信息窗发送短息
 			   };
-	for(var i=0;i<data_info.length;i++){
+
+var sUserAgent = navigator.userAgent.toLowerCase();
+            var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
+            var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";
+            var bIsMidp = sUserAgent.match(/midp/i) == "midp";
+            var bIsUc7 = sUserAgent.match(/rv:1.2.3.4/i) == "rv:1.2.3.4";
+            var bIsUc = sUserAgent.match(/ucweb/i) == "ucweb";
+            var bIsAndroid = sUserAgent.match(/android/i) == "android";
+            var bIsCE = sUserAgent.match(/windows ce/i) == "windows ce";
+            var bIsWM = sUserAgent.match(/windows mobile/i) == "windows mobile";
+            //document.writeln("您的浏览设备为：");
+ if (bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM) 
+ {
+	for(var i=0;i<data_0.length;i++){
 		/*
-		var marker = new BMap.Marker(new BMap.Point(data_info[i][0],data_info[i][1]));  // 创建标注
-		var content = data_info[i][2];
+		var marker = new BMap.Marker(new BMap.Point(data_0[i][0],data_0[i][1]));  // 创建标注
+		var content = data_0[i][2];
 		map.addOverlay(marker);               // 将标注添加到地图中
 		marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
 		addClickHandler(content,marker);
 		*/
 		//创建大熊猫
-		var pt = new BMap.Point(data_info[i][0],data_info[i][1]);
-		var myIcon = new BMap.Icon("https://www.easyicon.net/api/resizeApi.php?id=4710&size=36", new BMap.Size(30,40));
+		var pt = new BMap.Point(data_0[i][0],data_0[i][1]);
+		var myIcon = new BMap.Icon("https://www.easyicon.net/api/resizeApi.php?id=4710&size=27", new BMap.Size(30,40));
 		var marker2 = new BMap.Marker(pt,{icon:myIcon});  // 创建标注
-		var content = data_info[i][2];
+		var content = data_0[i][2];
+		map.addOverlay(marker2); // 将标注添加到地图中
+		//marker2.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+		addClickHandler(content,marker2);
+	}
+
+	for(var i=0;i<data_1.length;i++){
+		//创建大熊猫
+		var pt = new BMap.Point(data_1[i][0],data_1[i][1]);
+		var myIcon = new BMap.Icon("https://www.easyicon.net/api/resizeApi.php?id=4710&size=45", new BMap.Size(60,80));
+		var marker2 = new BMap.Marker(pt,{icon:myIcon});  // 创建标注
+		var content = data_1[i][2];
+		map.addOverlay(marker2); // 将标注添加到地图中
+		//marker2.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+		addClickHandler(content,marker2);
+	}
+
+	for(var i=0;i<data_2.length;i++){
+		//创建大熊猫
+		var pt = new BMap.Point(data_2[i][0],data_2[i][1]);
+		var myIcon = new BMap.Icon("https://www.easyicon.net/api/resizeApi.php?id=4710&size=63", new BMap.Size(90,120));
+		var marker2 = new BMap.Marker(pt,{icon:myIcon});  // 创建标注
+		var content = data_2[i][2];
+		map.addOverlay(marker2); // 将标注添加到地图中
+		//marker2.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+		addClickHandler(content,marker2);
+	}
+}
+      else { 
+
+        for(var i=0;i<data_0.length;i++){
+		//创建大熊猫
+		var pt = new BMap.Point(data_0[i][0],data_0[i][1]);
+		var myIcon = new BMap.Icon("https://www.easyicon.net/api/resizeApi.php?id=4710&size=27", new BMap.Size(30,40));
+		var marker2 = new BMap.Marker(pt,{icon:myIcon});  // 创建标注
+		var content = data_0[i][2];
 		map.addOverlay(marker2); // 将标注添加到地图中
 		marker2.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
 		addClickHandler(content,marker2);
 	}
+
+	for(var i=0;i<data_1.length;i++){
+		//创建大熊猫
+		var pt = new BMap.Point(data_1[i][0],data_1[i][1]);
+		var myIcon = new BMap.Icon("https://www.easyicon.net/api/resizeApi.php?id=4710&size=45", new BMap.Size(60,80));
+		var marker2 = new BMap.Marker(pt,{icon:myIcon});  // 创建标注
+		var content = data_1[i][2];
+		map.addOverlay(marker2); // 将标注添加到地图中
+		marker2.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+		addClickHandler(content,marker2);
+	}
+
+	for(var i=0;i<data_2.length;i++){
+		//创建大熊猫
+		var pt = new BMap.Point(data_2[i][0],data_2[i][1]);
+		var myIcon = new BMap.Icon("https://www.easyicon.net/api/resizeApi.php?id=4710&size=63", new BMap.Size(90,120));
+		var marker2 = new BMap.Marker(pt,{icon:myIcon});  // 创建标注
+		var content = data_2[i][2];
+		map.addOverlay(marker2); // 将标注添加到地图中
+		marker2.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+		addClickHandler(content,marker2);
+	}
+  }
+
 
 	function addClickHandler(content,marker){
 		marker.addEventListener("click",function(e){
